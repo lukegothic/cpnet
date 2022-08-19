@@ -1,0 +1,80 @@
+CPNET
+- modelo completo de la ddbb
+- tareas gis: 
+	TOOLING
+	1. instalacion de geoserver + postgis (hyperv)
+	2. publicar capas geo en geoserver
+	3. openlayers + conectar con geoserver (consumir datos)
+	BASES
+	4. carga de .dgn en postgis + publicación servicio
+		drag + insert + load parcelas intersecantes
+	5. modificación dgn (area interés, dibujar o añadir parcelas)
+		al clic en parcela => añadir o quitar
+		extender parcela
+	6. corte de area de interés para clasificar, y poder modificar porciones (topologia)
+	7. carga parcelario
+	8. incluir / excluir parcela + motivo?
+	9. modificación parcelas (topología)
+	10. dibujo de recintos de interés + categorizar
+	ACUERDO
+	11. ???
+	
+	
+funcionalidades random:
+- desacer rehacer dibujo corte etc
+- cortar pegar recintos
+
+========================================
+
+Qué cosas tengo en openlayers:
+1. capa de fondo teselada - IDENA (tile layer // image layer)
+2. capa con el AOI - CPNET (feature layer)
+2.1 editable arrastrable dibujable (sin restriction)
+3. capa de parcelas rusticas - IDENA (feature layer)
+3.1 filtrar por aoi => intersects con AOI
+4. capa de clasificación - CPNET (feature layer)
+4.1 origen => aoi
+4.2 permite cortar y pegar recintos colindantes, pero no modificar la geometría exterior
+5. parcelas de interes - CPNET (feature layer)
+5.1 crear y editar
+6. capa de parcelas rusticas no editable CPNET (image layer)
+6.1 fondo de referencia para clasificación
+7. capa de edición de parcelas rústicas CPNET
+7.1 carga al hacer clic una parcela y las de alrededor
+
+Componetización en React
+:: Fase AOI
+    componente que permite hacer drag and drop de archivo
+    componente CAPA que carga el AOI del WFS si existe y manda ediciones
+    componente CAPA con parcelas rusticas que intersectan + boton que permite agregarlas automaticamente
+:: Fase Clasificación
+    componente que permite cortar y pegar terrenos
+    componente que permite editar terrenos, con topología. Edición salvo que sea perimetro exterior
+    componente con las parcelas debajo solo lectura
+:: Fase Parcelas
+    componente que permite editar parcelas y cortarlas, con topología
+:: Fase recintos de interés
+    componente que permite crear recintos
+    componente capa que permite editarlos sin salirnos del perimetro AOI
+
+Pasos:
+
+:: Fase AOI
+    AOI existe?
+        Carga WFS con geom
+    Carga componente arrastrar y/o cargar geom desde file - si existe pedir confirmacion al reemplazar 
+    PROCESO--- ajustar AOI y agregar parcelas rusticas intersect
+    BOTON CONSOLIDAR AOI --> copia AOI a capa terreno con clase 1, obtiene parcelas de debajo y las mete a parcelas aportadas
+:: Fase Clasificación
+    Se muestra AOI de referencia
+    PROCESO--- cortar pegar aoi sin salirse del aoi + modificar poligonos de dentro + clasificar
+:: Fase Parcelas
+    Se muestra parcelas imagen
+    Se puede clicar en una parcela para cargarla y las de alrededor, pero el borde exterior no se puede modificar
+    PROCESO--- ajustar parcelas sin salirse del aoi (por defecto con topologia)
+:: Fase recintos de interés
+    PROCESO--- dibujar ajustar recintos y clasitificar tipificar sin salirse del aoi, alguna restriccion mas???
+
+TODO conectado con el endpoint de geoserver para persistir los cambios y con posibilidad de undo/redo 
+
+jsts para operaciones y entiendo que para bloquear edges tb
