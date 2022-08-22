@@ -135,7 +135,7 @@ const App = () => {
                 featurePrefix: cp_namespace,
                 featureType: cp_layer,
                 //srsName: 'EPSG:4326',
-                srsName: "CRS:84",
+                srsName: "CRS:84",  // que es esto? esto es una projección que flipea la xy, equivale a EPSG:4326
                 outputFormat: 'application/json',
             });
             
