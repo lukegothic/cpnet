@@ -78,3 +78,30 @@ Pasos:
 TODO conectado con el endpoint de geoserver para persistir los cambios y con posibilidad de undo/redo 
 
 jsts para operaciones y entiendo que para bloquear edges tb
+
+
+Tareas:
+- Carga fichero con poligono (WFS cp)           *
+- Carga parcelas borde polígono (WFS idena)     
+- Carga area interés servicio (WFS cp)          *
+- Guardar area interés servicio (WFS cp)        * (falta guardar cada edicion)
+- Añadir quitar parcelas a poligono (una / todas) (WFS cp)
+- Cortar terreno (WFS cp)
+https://gist.github.com/iamgeoknight/0a49883e2c3d266749444488a1a51752
+https://www.igismap.com/wps-split-polygon-geoserver/
+http://hvwserver2019:8080/geoserver/web/wicket/bookmarkable/org.geoserver.wps.web.WPSRequestBuilder?8
+- Pegar terreno (WFS cp)
+- Guardar ediciones terreno (WFS cp)
+- Guardar parcelas cp (WFS IDENA + WFS cp)
+- Identify clic parcela (WMS cp)
+- Carga parcelas pegadas a otra parcela (WFS cp)
+- Habilitar topología siempre
+- Edición parcelas (WFS cp)
+- Limitar edición a borde exterior >> crear borde exterior fake con snap ? (JSTS)
+- Deshacer / rehacer operacion (WFS cp)
+- Crear poligonos interés (WFS cp)
+- Definir caminos antiguos (WFS cp)
+
+
+- rlayers https://mmomtchev.github.io/rlayers/#/
+Cuando esta una clasificación completa ? 100% AOI?
