@@ -79,7 +79,6 @@ TODO conectado con el endpoint de geoserver para persistir los cambios y con pos
 
 jsts para operaciones y entiendo que para bloquear edges tb
 
-
 Tareas:
 - Carga fichero con poligono (WFS cp)           *
 - Carga parcelas borde polígono (WFS idena)     
@@ -101,7 +100,6 @@ http://hvwserver2019:8080/geoserver/web/wicket/bookmarkable/org.geoserver.wps.we
 - Deshacer / rehacer operacion (WFS cp)
 - Crear poligonos interés (WFS cp)
 - Definir caminos antiguos (WFS cp)
-
 
 - rlayers https://mmomtchev.github.io/rlayers/#/
 Cuando esta una clasificación completa ? 100% AOI?
