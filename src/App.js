@@ -194,20 +194,20 @@ const App = () => {
             e.features && e.features.length > 0 && initialMap.getView().fit(e.target.getExtent(), {
                 padding: [100, 100, 100, 100]
             });
-        });
+        });*/
         // al cargar si hay feature hacer zoom
-        initialAOILayer.on("change", (e) => {
+        initialAOILayer.once("change", (e) => {
             const f = e.target.getSource().getFeatures();
             if (f.length > 0) {
                 // TODO: Tambien hay que establecer el AOI para que funcione el boton de obtener las parcelas colindantes
-                //setAOI(f[0]); 
+                setAOI(f[0]); 
                 // TODO: pensar donde va el zoom a la capa, si en el setter o aqui 
                 initialMap.getView().fit(e.target.getSource().getExtent(), {
                     padding: [100, 100, 100, 100]
                 });
             }
         });
-        */
+        
         setMap(initialMap);
         setAOILayer(initialAOILayer);
         setParcelasRusticasLayer(initialParcelasRusticasLayer);
