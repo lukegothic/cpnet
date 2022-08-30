@@ -5,69 +5,37 @@ import {Image as ImageLayer, Tile as TileLayer} from 'ol/layer';
 import {Vector as VectorSource} from 'ol/source';
 import {bbox as bboxStrategy} from 'ol/loadingstrategy';
 import GeoJSON from 'ol/format/GeoJSON';
-
-import {intersects, equalTo as equalToFilter} from 'ol/format/filter';
-
+import { GEOSERVER_EPSG_4326_YX, INTERNAL_OGC_ENDPOINT, INTERNAL_OGC_FEATUREPREFIX, INTERNAL_OGC_LAYER_CONCENTRACIONPARCELARIA, INTERNAL_OGC_NAMESPACE, WFS_VERSION } from './constants';
 
 import 'ol/ol.css';
 import AOILoader from './ui/components/AOILoader';
 import VectorLayer from 'ol/layer/Vector';
-import { WFS } from 'ol/format';
 import AddParcelasToAOI from './ui/components/AddParcelasToAOI';
+import { Update } from './functions/utils/spatial';
+import BotonRandom from './ui/components/BotonRandom';
 
 const cpid = 2;
-const endpointOGCIDENA = "https://idena.navarra.es/ogc/ows";
-const parcelaRusticaLayer = "IDENA:CATAST_Pol_SubparRusti";
-const wfsVersion = "1.1.0";
-
-const endpointCPNET = "http://hvwserver2019:8080/geoserver/ows";
-const cp_namespace = "cpnet";
-const cp_layer = "concentracion_parcelaria";
 
 const writeCPAOI = async (aoi, map, aoiLayer) => {
     // CASOS A REFLEJAR:
+    // se podria usar getId o revisions... probar
     // 1. carga inicial: solo zoom
     // 2. reemplazar cargando uno nuevo: zoom + guardar + update layer
     // 3. editar: guardar
     // 4. anadir parcelas colindantes: zoom + guardar + update layer
-
-    // discriminar edits de carga inicial
     if (!aoi.getId()) {
         // preparar feature para subir
         aoi.setId(cpid);
+        
+        const r = await Update({
+            featureNS: INTERNAL_OGC_NAMESPACE,
+            featurePrefix: INTERNAL_OGC_FEATUREPREFIX,
+            featureType: INTERNAL_OGC_LAYER_CONCENTRACIONPARCELARIA,
+            features: aoi,
+            srsName: GEOSERVER_EPSG_4326_YX
+        }, INTERNAL_OGC_ENDPOINT);
 
-        // generate a GetFeature request
-        const wfsFormatter = new WFS({ version: wfsVersion, featureType: cp_layer, featureNS: cp_namespace });
-
-        /*
-        const featureRequest = new WFS().writeGetFeature({
-            srsName: 'EPSG:4326',
-            featurePrefix: 'topp',
-            featureTypes: ['tasmania_water_bodies'],
-            outputFormat: 'application/json',
-            filter: equalToFilter('WATER_TYPE', 'Lake')
-        });
-        */
-
-        const writeRequest = wfsFormatter.writeTransaction(
-            null, // inserts
-            [aoi], // updates
-            null, // deletes
-            {
-                featureNS: "https://www.navarra.es/cpnet",
-                featurePrefix: cp_namespace,
-                featureType: cp_layer,
-                //srsName: 'EPSG:4326',
-                srsName: "CRS:84",  // que es esto? esto es una projección que flipea la xy, equivale a EPSG:4326
-                outputFormat: 'application/json',
-            }
-        );
-        const response = await fetch(`${endpointCPNET}?SERVICE=WFS&version=${wfsVersion}`, {
-            method: 'POST',
-            body: new XMLSerializer().serializeToString(writeRequest),
-        });
         // TODO: check errors
-        //const text = await response.text();
         aoiLayer.getSource().clear();
         aoiLayer.getSource().refresh();
         /*
@@ -134,7 +102,7 @@ const App = () => {
         const aoiSource =  new VectorSource({
             format: new GeoJSON(),
             url: (extent, resolution, proj) => 
-                `${endpointCPNET}?SERVICE=WFS&version=1.1.0&request=GetFeature&typename=${cp_namespace}:${cp_layer}&outputFormat=application/json&srsname=${proj.code_}&bbox=${extent.join(',')},${proj.code_}`,
+                `${INTERNAL_OGC_ENDPOINT}?SERVICE=WFS&version=1.1.0&request=GetFeature&typename=${INTERNAL_OGC_FEATUREPREFIX}:${INTERNAL_OGC_LAYER_CONCENTRACIONPARCELARIA}&outputFormat=application/json&srsname=${proj.code_}&bbox=${extent.join(',')},${proj.code_}`,
             strategy: bboxStrategy,
         });
         const initialAOILayer = new VectorLayer({
@@ -215,7 +183,8 @@ const App = () => {
     }, []);
 
     useEffect(() => {
-        parcelas && aoiLayer.setSource(new VectorSource({ features: parcelas }));
+        parcelas && parcelasRusticasLayer.setSource(new VectorSource({ features: parcelas }));
+        //parcelas && parcelasRusticasLayer.getSource().addFeature(parcelas);
     }, [parcelas]);
 
     useEffect(() => {
@@ -226,7 +195,8 @@ const App = () => {
         <>
             <div style={{ height:'100vh',width:'100%' }} ref={mapElement} className="map-container" />
             { mapRef && mapRef.current && <AOILoader map={ mapRef.current } mapElement={ mapElement.current } setAOI={setAOI} /> }
-            { aoi && <AddParcelasToAOI aoi={aoi} setParcelas={setParcelas} /> }
+            { aoi && <AddParcelasToAOI aoi={aoi} setAOI={setAOI} setParcelas={setParcelas} /> }
+            { aoi && <BotonRandom aoi={aoi} setParcelas={setParcelas} /> }
         </>
     );
 }

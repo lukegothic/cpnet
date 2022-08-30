@@ -1,50 +1,28 @@
-import GML3 from 'ol/format/GML3';
-import GeoJSON from 'ol/format/GeoJSON';
-import { WFS as WFSFormat } from 'ol/format';
 import { intersects as intersectsFilter } from 'ol/format/filter';
-import { GetBoundary } from '../../functions/utils/spatial';
-
-const endpointOGCIDENA = "https://idena.navarra.es/ogc/ows";
-const parcelaRusticaLayer = "IDENA:CATAST_Pol_SubparRusti";
-const wfsVersion = "1.1.0";
+import { GetBoundary, GetFeature, Union } from '../../functions/utils/spatial';
+import Feature from 'ol/Feature';
+import { EXTERNAL_OGC_ENDPOINT, EXTERNAL_OGC_LAYER_PARCELASRUSTICAS, EXTERNAL_OGC_FEATUREPREFIX, EXTERNAL_OGC_LAYER_PARCELASRUSTICAS_FIELD_GEOM } from '../../constants';
 
 const process = async (aoi, setParcelas) => {
-    const gml = new GML3();
-    const geojson = new GeoJSON();
-    // TODO: esto en la clase WPS
-    //const data = gml.writeGeometry(aoi.getGeometry());
-    const data = geojson.writeGeometry(aoi.getGeometry());
     // 1. contorno del aoi
-    const contorno = await GetBoundary(data);
-    //const mls = new MultiLineString(contorno);
-    const mls = geojson.readFeature(contorno);
+    const contorno = await GetBoundary({ polygon: aoi });
     // 2. match contorno con parcelas
-     // generate a GetFeature request
-     const wfsFormatter = new WFSFormat({ version: wfsVersion });
-
-     const featureRequest = wfsFormatter.writeGetFeature({
-         srsName: 'EPSG:4326',
-         featureTypes: [parcelaRusticaLayer],
-         outputFormat: 'application/json',
-         filter: intersectsFilter("the_geom", mls.getGeometry())
-     });
-
-     const response = await fetch(`${endpointOGCIDENA}?SERVICE=WFS&version=${wfsVersion}`, {
-         method: 'POST',
-         body: new XMLSerializer().serializeToString(featureRequest),
-     });
-     const j = await response.json();
-     console.log(j);
-     const features = geojson.readFeatures(j);
-     setParcelas(features);
+    const features = await GetFeature({
+        featurePrefix: EXTERNAL_OGC_FEATUREPREFIX,
+        featureType: EXTERNAL_OGC_LAYER_PARCELASRUSTICAS,
+        filter: intersectsFilter(EXTERNAL_OGC_LAYER_PARCELASRUSTICAS_FIELD_GEOM, contorno)
+    }, EXTERNAL_OGC_ENDPOINT);
+    setParcelas(features);
     // 3. union aoi con parcelas
-
+    const unidos = await Union({ polygons: features.concat(aoi) });
+    // TODO: MOSTRAR EN X
+    //const unidosfeature = new Feature({ geometry: unidos, name: "test" });
+    //setParcelas(unidosfeature);
 }
 
 const AddParcelasToAOI = ({ aoi, setAOI, setParcelas }) => {
-    console.log(aoi);
     return (
-        <button onClick={() => process(aoi, setParcelas)}>AddParcelasToAOI</button>
+        <button onClick={() => process(aoi, setAOI, setParcelas)}>AddParcelasToAOI</button>
     );
 }
 
