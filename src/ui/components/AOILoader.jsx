@@ -1,8 +1,7 @@
 import DragAndDrop from 'ol/interaction/DragAndDrop';
 import {GPX, GeoJSON, IGC, KML, TopoJSON} from 'ol/format';
 import MultiPolygon from 'ol/geom/MultiPolygon';
-
-const geometryName = "area_interes";
+import { INTERNAL_OGC_LAYER_CONCENTRACIONPARCELARIA_FIELD_GEOM } from '../../constants';
 
 const AOILoader = ({ map, mapElement, setAOI }) => {
     const dragAndDropInteraction = new DragAndDrop({
@@ -21,7 +20,7 @@ const AOILoader = ({ map, mapElement, setAOI }) => {
             const features = [...e.features];
             features.forEach(f => {
                 f.setId(null);
-                f.setGeometryName(geometryName);
+                f.setGeometryName(INTERNAL_OGC_LAYER_CONCENTRACIONPARCELARIA_FIELD_GEOM);
                 let geometry = f.getProperties().geometry;
                 if (geometry.getType() === "Polygon") {
                     geometry = new MultiPolygon([geometry]);
