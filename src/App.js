@@ -99,6 +99,7 @@ const App = () => {
             source: new VectorSource()
         });
         */
+       // TODO: esto esta dando mas problemas que otra cosa... cambiar a consulta AOI
         const aoiSource =  new VectorSource({
             format: new GeoJSON(),
             url: (extent, resolution, proj) => 
@@ -147,7 +148,7 @@ const App = () => {
             view: new View({
                 projection: 'EPSG:4326',
                 center: [-1.642456, 42.819581],
-                zoom: 13,
+                zoom: 10,
             })
         });
 

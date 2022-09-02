@@ -14,4 +14,4 @@ export const INTERNAL_OGC_FEATUREPREFIX = "cpnet";
 export const INTERNAL_OGC_LAYER_CONCENTRACIONPARCELARIA = "concentracion_parcelaria";
 export const INTERNAL_OGC_LAYER_CONCENTRACIONPARCELARIA_FIELD_GEOM = "area_interes";
 
-export const GEOSERVER_EPSG_4326_YX = "CRS:84"; // que es esto? esto es una projección que flipea la xy, equivale a EPSG:4326
+export const GEOSERVER_EPSG_4326_YX = "CRS:84"; // que es esto? esto es una proyección que flipea la xy, equivale a EPSG:4326
