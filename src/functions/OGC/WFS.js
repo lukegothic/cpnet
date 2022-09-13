@@ -21,14 +21,14 @@ class WFS {
 
     }
     // atencion, sin filtro trae todas las features
-    async GetFeature({ featureNS = null, featurePrefix, featureTypes, filter = null, srsName }) {
+    async GetFeature({ featureNS = null, featurePrefix, featureTypes, filter = null, srsName, outputFormat = 'application/json' }) {
         const readRequest = this.formatters_.WFS.writeGetFeature({
             featureNS,
             featurePrefix,
             featureTypes,
             filter,
             srsName,
-            outputFormat: 'application/json'
+            outputFormat
         });
         const r = await fetch(this.endpoint_, {
             method: 'POST',
@@ -38,7 +38,7 @@ class WFS {
         const features = this.formatters_.GeoJSON.readFeatures(rjson);
         return features;
     }
-    async Transaction({ featureNS = null, featurePrefix, featureType, srsName, inserts = null, updates = null, deletes = null }) {
+    async Transaction({ featureNS = null, featurePrefix, featureType, srsName, inserts = null, updates = null, deletes = null, outputFormat = 'application/json' }) {
         const writeRequest = this.formatters_.WFS.writeTransaction(
             inserts && (Array.isArray(inserts) ? inserts : [inserts]),
             updates && (Array.isArray(updates) ? updates : [updates]),
@@ -48,7 +48,7 @@ class WFS {
                 featurePrefix,
                 featureType,
                 srsName,
-                outputFormat: 'application/json',
+                outputFormat,
             }
         );
         const response = await fetch(this.endpoint_, {
