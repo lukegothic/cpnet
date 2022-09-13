@@ -10,9 +10,8 @@ import { GEOSERVER_EPSG_4326_YX, INTERNAL_OGC_ENDPOINT, INTERNAL_OGC_FEATUREPREF
 import 'ol/ol.css';
 import AOILoader from './ui/components/AOILoader';
 import VectorLayer from 'ol/layer/Vector';
-import AddParcelasToAOI from './ui/components/AddParcelasToAOI';
 import { Update } from './functions/utils/spatial';
-import BotonRandom from './ui/components/BotonRandom';
+import ActionToolbar from './ui/components/ActionToolbar/ActionToolbar';
 
 const cpid = 2;
 
@@ -77,8 +76,28 @@ const writeCPAOI = async (aoi, map, aoiLayer) => {
             padding: [100, 100, 100, 100]
         });
         */
-    }
-    
+    }  
+}
+
+// puede ser provisional o definitivo
+// se puede guardar a la vez que la zona de actuacion en una sola operaciokn
+const EstablecerEstadoZonaActuacion = ({ status }) => {
+    // TODO: guardar estado CP
+}
+
+// el guardado de la geometria como tal
+const GuardarZonaActuacion = () => {
+
+}
+
+// recarga de la zona de actuacion del servidor
+const CargaZonaActuacion = () => {
+
+}
+
+// zoom a la zona de actiacion
+const Zoom = () => {
+
 }
 
 const App = () => {
@@ -86,7 +105,7 @@ const App = () => {
     const [ aoiLayer, setAOILayer ] = useState();
     const [ parcelasRusticasLayer, setParcelasRusticasLayer ] = useState();
     const [ aoi, setAOI ] = useState();
-    const [ parcelas, setParcelas ] = useState();
+    const [ parcelas, setParcelas ] = useState([]);
 
     const mapElement = useRef();
     const mapRef = useRef();
@@ -152,6 +171,7 @@ const App = () => {
             })
         });
 
+        initialMap.on("click", (e) => console.log(e));
         // esta seccion pretende hacer zoom al AOI, hay dos maneras de hacerlo:
         // VectorSource: evento "featuresloadend" => la primera carga OK, la segunda carga no funciona
         // VectorLayer: evento "change" => la primera carga OK, la segunda carga no funciona
@@ -184,7 +204,7 @@ const App = () => {
     }, []);
 
     useEffect(() => {
-        parcelas && parcelasRusticasLayer.setSource(new VectorSource({ features: parcelas }));
+        parcelas && parcelasRusticasLayer && parcelasRusticasLayer.setSource(new VectorSource({ features: parcelas }));
         //parcelas && parcelasRusticasLayer.getSource().addFeature(parcelas);
     }, [parcelas]);
 
@@ -196,8 +216,7 @@ const App = () => {
         <>
             <div style={{ height:'100vh',width:'100%' }} ref={mapElement} className="map-container" />
             { mapRef && mapRef.current && <AOILoader map={ mapRef.current } mapElement={ mapElement.current } setAOI={setAOI} /> }
-            { aoi && <AddParcelasToAOI aoi={aoi} setAOI={setAOI} setParcelas={setParcelas} /> }
-            { aoi && <BotonRandom aoi={aoi} setParcelas={setParcelas} /> }
+            { aoi && <ActionToolbar aoi={aoi} setAOI={setAOI} parcelas={parcelas} setParcelas={setParcelas} />}
         </>
     );
 }

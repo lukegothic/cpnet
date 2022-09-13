@@ -1,14 +1,14 @@
 import DragAndDrop from 'ol/interaction/DragAndDrop';
-import {GPX, GeoJSON, IGC, KML, TopoJSON} from 'ol/format';
+import {GML, GPX, GeoJSON, KML, TopoJSON} from 'ol/format';
 import MultiPolygon from 'ol/geom/MultiPolygon';
 import { INTERNAL_OGC_LAYER_CONCENTRACIONPARCELARIA_FIELD_GEOM } from '../../constants';
 
 const AOILoader = ({ map, mapElement, setAOI }) => {
     const dragAndDropInteraction = new DragAndDrop({
         formatConstructors: [
+          GML,
           GPX,
           GeoJSON,
-          IGC,
           new KML({ extractStyles: false }),
           TopoJSON,
         ],

@@ -1,3 +1,5 @@
+WFS
+- configurar para que se puedan hacer transactions
 WPS
 - https://docs.geoserver.org/master/en/user/services/wps/install.html
 - https://geoserver.org/release/stable/ --> extensions (SERVICES --> WPS no la otra) --> copiar jar en (C:\Program Files\GeoServer\webapps\geoserver\WEB-INF\lib)

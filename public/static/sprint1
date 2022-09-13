@@ -1,0 +1,15 @@
+carcasa app:
+- responsive
+- estilos
+- menu principal
+formulario crud CP + seleccion CP por usuario + empresa (esto tendria q hacerlo el backend)
+formulario login -> permisos rol autorización
+cargar zona actuacion
+- geojson
+- kml
+- shp
+---- dgn opc
+confirmar zona actuacion
+fichero recursos
+
+> actualizar modelo conceptual

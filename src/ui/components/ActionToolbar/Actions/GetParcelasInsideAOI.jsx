@@ -1,6 +1,6 @@
 import { within as withinFilter } from 'ol/format/filter';
-import { GetFeature } from '../../functions/utils/spatial';
-import { EXTERNAL_OGC_ENDPOINT, EXTERNAL_OGC_LAYER_PARCELASRUSTICAS, EXTERNAL_OGC_FEATUREPREFIX, EXTERNAL_OGC_LAYER_PARCELASRUSTICAS_FIELD_GEOM } from '../../constants';
+import { GetFeature } from '../../../../functions/utils/spatial';
+import { EXTERNAL_OGC_ENDPOINT, EXTERNAL_OGC_LAYER_PARCELASRUSTICAS, EXTERNAL_OGC_FEATUREPREFIX, EXTERNAL_OGC_LAYER_PARCELASRUSTICAS_FIELD_GEOM } from '../../../../constants';
 
 const process = async (aoi, setParcelas) => {
     // peticion within
@@ -12,10 +12,10 @@ const process = async (aoi, setParcelas) => {
     setParcelas(features);
 }
 
-const BotonRandom = ({ aoi, setParcelas }) => {
+const GetParcelasInsideAOI = ({ aoi, setParcelas }) => {
     return (
-        <button onClick={() => process(aoi, setParcelas)}>BotonRandom</button>
+        <button onClick={() => process(aoi, setParcelas)}>Parcelas dentro AOI</button>
     );
 }
 
-export default BotonRandom;
+export default GetParcelasInsideAOI;
