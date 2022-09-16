@@ -1,0 +1,2 @@
+los metodos que utiliza la aplicación, services hace uso de repositories
+aqui puede estar la logica de negocio en plan utilizando varios metodos de varios repositorios

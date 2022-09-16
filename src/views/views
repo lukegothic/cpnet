@@ -1,0 +1,6 @@
+lo principal son las paginas
+cada pagina (view) puede tener tambien _components y _functions
+cada pagina es una carpeta
+cada pagina puede tener styledconponents (XXXX.styles.jsx)
+
+nunca usar default y tener un index.js para agrupar todo

@@ -1,0 +1,18 @@
+tech        :   react (default) || nextjs (valorar)
+lang        :   vanilla (default) || ts (valorar)
+router      :   browser router (default) || hash router (si no funciona browser)
+state       :   basic-context (default) || redux
+estilos     :   styled components (default) || scss
+data-fetch  :   axios (default) || fetch || apollo || react-query
+mapas       :   openlayers (default) || leaflet || mapbox
+i18n        :   a medida el de aqi (default)
+graphs      :   chart.js (default) || d3 || google chart
+
+otras libs  :   lodash (si) || dayjs (si)
+template    :   https://berrydashboard.io/free/dashboard/default (valorar) || https://demos.creative-tim.com/soft-ui-dashboard-react/#/dashboard
+componentes :   https://mui.com/ (valorar) || https://material.io/design
+estructura  :   TODO! => https://github.com/eea/eea.reportnet3/tree/develop/frontend-service
+deployment  :   git + jenkins (pds)
+
+npx create-next-app@latest --typescript
+Next.js comes with ESLint preinstalled. Adding eslint:recommended in addition to the default next/core-web-vitals might be a good idea to have a somewhat stricter set of rules
