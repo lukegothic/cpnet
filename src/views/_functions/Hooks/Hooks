@@ -1,0 +1,7 @@
+es una funcion en el que puedes utilizar estados propios que no son estados del componente aunque si le puedes pasar
+buscar: WHEN TO USE custom hooks
+
+un hook devuelve un dato o conjunto de datos
+
+Es como un "utils" que ayuda a liberar carga del componente y que reacciona a state y mantener estado propio.
+Se suele utilizar para transformar datos. Es la diferencia con un servicio.

@@ -1,0 +1,2 @@
+Provider es una propiedad de contexto, pero en general se encapsula por claridad.
+Con la estructura que tenemos, el estado se crea en el provider y asi en la pagina que los declara no hay qye hacer la declaracion mas específica.

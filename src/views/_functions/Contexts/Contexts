@@ -1,0 +1,9 @@
+El contexto se utiliza cuando voy a utilizar unas propiedades en un componente que no tienen una relación jerárquica.
+La biblioteca Redux es un contexto pero sólo con uno Global. Conviene tener un contexto por funcionalidad (menu, usuario...)
+Básicos: i18n, user o userpreferences, menú si tienes menú.
+
+createContext + reducer + set of actions
+
+Para usarlo, importar el contexto en el componente y hacer useContext(contexto importado)
+
+Crear un metodo save que persista en localstorage, bbdd y state.

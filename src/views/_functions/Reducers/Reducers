@@ -1,0 +1,4 @@
+Se usa para actualizar objetos json basicamente
+
+Las action type son un enum que se usa en el dispatcher para selccionar la accion que se va a ejecutar + actualizar state
+Se pueden precocinar las diferentes acciones creando funciones setTheme, setStations...
