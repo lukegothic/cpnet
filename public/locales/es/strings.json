@@ -1,0 +1,12 @@
+{
+  "messages": {
+    "200": "guay",
+    "404": "problema"
+  },
+  "ui": {
+    "header": "Concentracion Parcelaria",
+    "nav": "Menu",
+    "main": "CONTENIDO",
+    "footer": "Gobierno de Navarra 2023 - Todos los derechos reservados"
+  }
+}

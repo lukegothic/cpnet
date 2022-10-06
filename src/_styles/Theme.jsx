@@ -1,5 +1,7 @@
 /*
 export const ThemeColors
-export const LightTheme
+
+export const GobiernoNavarraTheme
+export const TracasaTheme
 export const DarkTheme
 */

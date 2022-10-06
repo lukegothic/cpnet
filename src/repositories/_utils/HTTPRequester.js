@@ -1,39 +1,52 @@
-import axios from 'axios';
+import axios from "axios";
 
+/*
+  options:
+    url: ruta relativa desde el endpoint, string
+    data: objeto JSON con datos a enviar
+    headers: array de headers
+*/
+const REACT_APP_BACKEND = "http://pmpwvdesgis01/CPNet_Alpha01/api/";
+
+// TODO: validador de parametros/options
 export const HTTPRequester = (() => {
-  const baseURL = window.env.REACT_APP_BACKEND;
-
-  //Maps object queryString to 'key=value' format. Checks if queryString is undefined or empty object
-  const mapQueryString = queryString =>
-    !queryString
-      ? ''
-      : Object.entries(queryString).length <= 0
-      ? ''
-      : `?${Object.entries(queryString)
-          .map(key => `${key[0]}=${key[1]}&`)
-          .join('')
-          .slice(0, -1)}`;
-
   const HTTPRequesterAPI = {
-    /* AXIOS */
-    get: options =>
-      axios.get(`${baseURL}${options.url}${mapQueryString(options.queryString)}`, { headers: options.headers }),
-
-    download: options =>
-      axios.get(`${baseURL}${options.url}${mapQueryString(options.queryString)}`, {
-        responseType: 'blob',
-        headers: options.headers
+    get: ({ url, data, headers }) =>
+      axios.get(`${REACT_APP_BACKEND}${url}?${new URLSearchParams(data).toString()}`, {
+        headers
       }),
 
-    post: options => axios.post(`${baseURL}${options.url}`, options.data, { headers: options.headers }),
+    download: ({ url, data, headers }) =>
+      axios.get(`${REACT_APP_BACKEND}${url}?${new URLSearchParams(data).toString()}`, {
+        responseType: "blob",
+        headers
+      }),
 
-    update: options => axios.put(`${baseURL}${options.url}`, options.data, { headers: options.headers }),
+    post: ({ url, data, headers }) =>
+      axios.post(`${REACT_APP_BACKEND}${url}`, data, {
+        headers
+      }),
 
-    delete: options => axios.delete(`${baseURL}${options.url}`, { data: options.data, headers: options.headers }),
+    update: ({ url, data, headers }) =>
+      axios.put(`${REACT_APP_BACKEND}${url}`, data, {
+        headers
+      }),
 
-    postWithFiles: options => axios.post(`${baseURL}${options.url}`, options.data, { headers: options.headers }),
+    delete: ({ url, data, headers }) =>
+      axios.delete(`${REACT_APP_BACKEND}${url}`, {
+        data,
+        headers
+      }),
 
-    putWithFiles: options => axios.put(`${baseURL}${options.url}`, options.data, { headers: options.headers })
+    postWithFiles: ({ url, data, headers }) =>
+      axios.post(`${REACT_APP_BACKEND}${url}`, data, {
+        headers
+      }),
+
+    putWithFiles: ({ url, data, headers }) =>
+      axios.put(`${REACT_APP_BACKEND}${url}`, data, {
+        headers
+      })
   };
 
   return HTTPRequesterAPI;

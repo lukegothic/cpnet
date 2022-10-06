@@ -1,0 +1,12 @@
+{
+  "messages": {
+    "200": "guaki",
+    "404": "probleka"
+  },
+  "ui": {
+    "header": "Lur Kontzentrazioa",
+    "nav": "Nabigazioa",
+    "main": "EDUKIAK",
+    "footer": "Nafarroako gobernua 2023 - Eskubide guztiak erreserbatuak"
+  }
+}

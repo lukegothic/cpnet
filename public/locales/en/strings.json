@@ -1,0 +1,12 @@
+{
+  "messages": {
+    "200": "ok",
+    "404": "error"
+  },
+  "ui": {
+    "header": "Land Concentration",
+    "nav": "Menu",
+    "main": "CONTENTS",
+    "footer": "Government of Navarre - 2023 All rights reserved"
+  }
+}

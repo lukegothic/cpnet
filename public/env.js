@@ -8,6 +8,5 @@
 // any syntax that is not yet supported by your targeted browsers.
 
 window.env = {
-  // This option can be retrieved in "src/index.js" with "window.env.REACT_APP_BACKEND".
-  REACT_APP_BACKEND: "https://dev-api.reportnet.europa.eu",
+  REACT_APP_BACKEND: "http://pmpwvdesgis01/CPNet_Alpha01/api",
 };
