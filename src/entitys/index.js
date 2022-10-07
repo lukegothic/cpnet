@@ -1,0 +1,1 @@
+export { ConcentracionParcelaria } from './ConcentracionParcelaria/ConcentracionParcelaria';

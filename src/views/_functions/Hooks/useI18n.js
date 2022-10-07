@@ -2,7 +2,7 @@ import { useState, useEffect, useReducer } from "react";
 import axios from "axios";
 
 const getLocale = async lang => {
-  let localeResponse = await axios.get(`locales/${lang}/strings.json`);
+  let localeResponse = await axios.get(`/locales/${lang}/strings.json`);
   if (localeResponse.status !== 200) {
     // TODO: fallback a idioma por defecto?
   }

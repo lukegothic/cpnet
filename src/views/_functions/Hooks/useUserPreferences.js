@@ -3,8 +3,9 @@ import axios from 'axios';
 import { defaults } from "conf/UserPreferences";
 
 export const useUserPreferences = () => {
-  // TODO: esto es un reducer!
-  const [userPreferences, setUserPreferences] = useState({});
+  // TODO: esto debe ser un reducer!
+  // TODO: debe contener metodos para al menos actualizar el theme y el idioma
+  const [userPreferences, setUserPreferences] = useState({ });
   useEffect(() => {
     (async () => {
       // TODO: modulo carga preferencias mixto ddbb + localstorage
@@ -13,5 +14,5 @@ export const useUserPreferences = () => {
     })();
   }, []);
 
-  return { ...userPreferences, loaded: !!userPreferences.lang };
+  return { ...userPreferences, loaded: !!userPreferences.lang && !!userPreferences.theme };
 }
