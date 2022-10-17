@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import { defaults } from "conf/UserPreferences";
+import { isEmpty } from "lodash";
 
 export const useUserPreferences = () => {
   // TODO: esto debe ser un reducer!
@@ -13,6 +14,7 @@ export const useUserPreferences = () => {
       setUserPreferences({ ...defaults, ...localUserPreferences });
     })();
   }, []);
+  
 
-  return { ...userPreferences, loaded: !!userPreferences.lang && !!userPreferences.theme };
+  return { ...userPreferences, loaded: !isEmpty(userPreferences),  };
 }
