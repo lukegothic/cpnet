@@ -1,1 +1,1 @@
-export { getConcentracionParcelaria } from "./ConcentracionParcelaria";
+//export { getConcentracionParcelaria } from "./ConcentracionParcelaria";

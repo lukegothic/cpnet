@@ -16,23 +16,23 @@ const App = () => {
   // 1. render inicial, sin nada
   // 2. re-render cuando llega el i18n
   // 3. re-render cuando llegan las userpreferences
-  // el overhead no es alto, pero se puede considerar si hay algun mecanismo
+  // el overhead no es alto, pero se puede considerar si hay algun mecanismo que optimice esto
   const userPreferences = useUserPreferences();
   // TODO: i18n depende de userPreferences asi que hay que hacerlo depender
   const i18n = useI18n();
   const theme = useTheme();
   useEffect(() => {
-    if (userPreferences) {
+    console.log("entro mounted", userPreferences);
+    if (userPreferences.loaded) {
       userPreferences.lang && i18n.setLang(userPreferences.lang);
       userPreferences.theme && theme.setTheme(userPreferences.theme);
     }
-  }, [userPreferences.lang, userPreferences.theme]);
+  }, [userPreferences.loaded]);
+
+  useEffect(() => {
+  }, []);
   
   const concentracionParcelaria = useConcentracionParcelaria();
-  //{ RouteList.map(route => <Route exact key={route.id} path={route.path} element={route.element} />) }
-  // <Route exact path="/" element={<IndexPage />} />
-  //                     <Route path="/:id" element={<DetailPage />} />
-  //                     <Route path="/:id/edit" element={<EditPage />} />
   return (
     <>
       {userPreferences.loaded && i18n.loaded ? (

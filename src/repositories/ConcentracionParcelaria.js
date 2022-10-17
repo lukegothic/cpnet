@@ -1,8 +1,14 @@
-import { HTTPRequester } from "./_utils/HTTPRequester"
+import { ConcentracionParcelariaRequester } from "./_utils/ConcentracionParcelariaRequester"
 
-export const getConcentracionParcelaria = (id) => {
-  // ejemplo de ruta con querystring
-  HTTPRequester.get({ url: "ConcentracionParcelaria", data: { id } });
-  // ejemplo de ruta cmpleta
-  HTTPRequester.get({ url: `ConcentracionParcelaria/${id}` });
-}
+export const ConcentracionParcelaria = (() => {
+  const ConcentracionParcelariaAPI = {
+    get: (id) => {
+      return ConcentracionParcelariaRequester.get({ url: `ConcentracionParcelaria/${id}` });
+    },
+    list: () => {
+      return ConcentracionParcelariaRequester.get({ url: `ConcentracionParcelaria` });
+    }
+  }
+  return ConcentracionParcelariaAPI;
+})();
+
