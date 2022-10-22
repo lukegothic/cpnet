@@ -16,7 +16,7 @@ const App = () => {
   console.log("render");  // solo debe salir un render por operacion, eliminar cuando no haga falta pruebas
   const concentracionParcelaria = useConcentracionParcelaria();
 
-  // TODO: considerar persistir el estado de react en localStorage para recuperarlo tras sesiones
+  // THINK: considerar persistir el estado de react en localStorage para recuperarlo tras sesiones
 
   return (
     <>
