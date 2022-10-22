@@ -1,4 +1,2 @@
-export { useI18n } from './useI18n';
-export { useUserPreferences } from './useUserPreferences';
-export { useTheme } from './useTheme';
+export { useApp } from './useApp';
 export { useConcentracionParcelaria } from './useConcentracionParcelaria';

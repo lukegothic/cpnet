@@ -1,56 +1,31 @@
 import { RouteList } from "conf/Routes";
-import { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route
 } from "react-router-dom";
-import { getLocaleStrings } from "services/I18n";
+import { getTheme } from "services/Theme";
 import { ThemeProvider } from "styled-components";
 import { LoadingPage } from "views";
 import { UserPreferencesContext, I18nContext, ConcentracionParcelariaContext } from "views/_functions/Contexts";
-import { useUserPreferences, useConcentracionParcelaria } from "views/_functions/Hooks";
-import { GlobalStyle, LightTheme } from "views/_theme";
+import { useApp, useConcentracionParcelaria } from "views/_functions/Hooks";
+import { GlobalStyle } from "views/_theme/GlobalStyle";
 
 const App = () => {
-  console.log("rerender loop");
-  // CON ESTO YA REACCIONA, NO HACE FALTA MAS HOOKS
-  const userPreferences = useUserPreferences();
-  // Estos valores se computan tras obtener el user preferences
-  // Se puede hacer aqui o en el hook de useUserPreferences y devolverlos
-  const i18n = userPreferences.lang ? getLocaleStrings(userPreferences.lang) : null;
-  const theme = userPreferences.theme ? LightTheme : null;
-/*
-  useEffect(() => {
-    console.log("entro mounted", userPreferences);
-    if (userPreferences.loaded) {
-      //userPreferences.lang && i18n.setLang(userPreferences.lang);
-      //userPreferences.theme && theme.setTheme(userPreferences.theme);
-    }
-  }, [userPreferences.loaded]);
-*/
-
-  useEffect(() => {
-
-  }, [userPreferences.lang]);
-
-  useEffect(() => {
-
-  }, [userPreferences.theme]);
-
-  useEffect(() => {
-    // codigo de inicializacion de la app, si lo hay
-  }, []);
-  
+  const { userPreferences, i18n, loaded: isAppLoaded } = useApp();
+  console.log("render");  // solo debe salir un render por operacion, eliminar cuando no haga falta pruebas
   const concentracionParcelaria = useConcentracionParcelaria();
+
+  // TODO: considerar persistir el estado de react en localStorage para recuperarlo tras sesiones
+
   return (
     <>
       <GlobalStyle />
-      {userPreferences.loaded && i18n && theme ? (
+      { isAppLoaded ? (
         <UserPreferencesContext.Provider value={userPreferences}>
           <ConcentracionParcelariaContext.Provider value={concentracionParcelaria}>
             <I18nContext.Provider value={i18n}>
-              <ThemeProvider theme={theme}>
+              <ThemeProvider theme={getTheme(userPreferences.theme)}>
                 <Router>
                   <Routes>
                     { RouteList.map(route => <Route exact key={route.id} path={route.path} element={route.element} />) }

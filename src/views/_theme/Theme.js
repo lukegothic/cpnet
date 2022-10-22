@@ -1,6 +1,7 @@
-export const Light = {
-  color: "#fff"
+export const GobiernoNavarra = {
+  backgroundColor: "#DC3545"
+  
 }
-export const Dark = {
-  color: "#000"
+export const TracasaInstrumental = {
+  backgroundColor: "#005A87"
 }

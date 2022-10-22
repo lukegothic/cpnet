@@ -1,3 +1,2 @@
-export { Global as GlobalStyle } from './Global';
-export { Light as LightTheme } from './Theme';
-export { Dark as DarkTheme } from './Theme';
+export { GobiernoNavarra as GobiernoNavarraTheme } from './Theme';
+export { TracasaInstrumental as TracasaInstrumentalTheme } from './Theme';

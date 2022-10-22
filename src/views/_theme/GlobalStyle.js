@@ -1,8 +1,8 @@
 import { createGlobalStyle } from "styled-components";
 
 // estilos globales de la aplicacion
-export const Global = createGlobalStyle`
-  option {
-    background: pink;
+export const GlobalStyle = createGlobalStyle`
+  body {
+    background: #eee;
   }
 `;

@@ -8,7 +8,7 @@
   mapas       :   openlayers (default) || leaflet || mapbox
   i18n        :   a medida (default)
   
-  otras libs  :   lodash (si) || dayjs (si)
+  otras libs  :   react-use (si) && lodash (si) && dayjs (si)
   template    :   https://berrydashboard.io/free/dashboard/default (valorar) || https://demos.creative-tim.com/soft-ui-dashboard-react/#/dashboard
   componentes :   https://mui.com/ (valorar) || https://material.io/design
   estructura  :   TODO! => https://github.com/eea/eea.reportnet3/tree/develop/frontend-service
@@ -21,3 +21,4 @@
   https://axios-http.com/docs/intro
   https://v5.reactrouter.com/web/guides/quick-start
   https://styled-components.com/docs
+  https://github.com/streamich/react-use

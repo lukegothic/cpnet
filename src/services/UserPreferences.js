@@ -7,6 +7,11 @@ export const load = async () => {
 }
 
 export const save = async (userPreferences) => {
-  const currentUserPreferences = load();
-  localStorage.setItem(localStorageKey, JSON.stringify({ ...currentUserPreferences, ...userPreferences }));
+  const currentUserPreferences = await load();
+  try {
+    localStorage.setItem(localStorageKey, JSON.stringify({ ...currentUserPreferences, ...userPreferences }));
+    return true;
+  } catch {   // Storage is full
+    return false;
+  }
 }
