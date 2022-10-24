@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { ConcentracionParcelaria as ConcentracionParcelariaEntity } from 'entitys';
 export const useConcentracionParcelaria = () => {
-  // TODO: considerar que este estado es un reducer y que sea un objeto mas complejo, 
-  // TODO: este hook sirve para que el router lea donde estamos
+  // hook que guarda estado en memoria (y repo) de la concentracion con la que se esta trabajando
+  // sirve para: 
+  // - almacenar cambios no persistidos
+  // - recuperar cambios al recuperar sesion
   const [concentracionParcelaria, setConcentracionParcelaria] = useState(new ConcentracionParcelariaEntity());
-  // TODO: return los reducers que modifiquen los datos de cp
   return { concentracionParcelaria, setConcentracionParcelaria };
 }

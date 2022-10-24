@@ -13,7 +13,7 @@ import { GlobalStyle } from "views/_theme/GlobalStyle";
 
 const App = () => {
   const { userPreferences, i18n, loaded: isAppLoaded } = useApp();
-  console.log("render");  // solo debe salir un render por operacion, eliminar cuando no haga falta pruebas
+  console.log("render");  // solo debe salir un render por operacion, eliminar esta linea cuando no haga falta hacer mas pruebas
   const concentracionParcelaria = useConcentracionParcelaria();
 
   // THINK: considerar persistir el estado de react en localStorage para recuperarlo tras sesiones

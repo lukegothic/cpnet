@@ -1,12 +1,13 @@
 import { useReducer, useCallback } from "react";
+import { useEffectOnce } from "react-use";
 import { isEmpty } from "lodash";
 import { load as loadUserPreferences, save as saveUserPreferences } from "services/UserPreferences";
 import { getLocaleStrings } from "services/I18n";
-import { useEffectOnce } from "react-use";
 import { manager as appManager, init, changeLang, changeTheme } from "views/_functions/Reducers/AppManager";
 
 export const useApp = () => {
   const [app, manageApp] = useReducer(appManager, { });
+  
   useEffectOnce(() => {
     (async () => {
       const userPrefs = await loadUserPreferences();
@@ -16,7 +17,6 @@ export const useApp = () => {
   });
 
   const setLang = useCallback(async (lang) => {
-    console.log("setlang", lang);
     const saveSuccess = await saveUserPreferences({ lang });
     if (saveSuccess) {
       const i18n = await getLocaleStrings(lang);
@@ -25,7 +25,6 @@ export const useApp = () => {
   });
 
   const setTheme = useCallback(async (theme) => {
-    console.log("settheme", theme);
     const saveSuccess = await saveUserPreferences({ theme });
     if (saveSuccess) {
       manageApp(changeTheme(theme));
