@@ -16,12 +16,12 @@ export class HTTPRequester {
   }
   get = ({ url, data, headers }) =>
     url &&
-    axios.get(`${this.endpoint}${url}${data && "?"}${new URLSearchParams(data).toString()}`, {
+    axios.get(`${this.endpoint}${url}${data ? "?" : ""}${new URLSearchParams(data).toString()}`, {
       headers
     });
   download = ({ url, data, headers }) =>
     url &&
-    axios.get(`${this.endpoint}${url}${data && "?"}${new URLSearchParams(data).toString()}`, {
+    axios.get(`${this.endpoint}${url}${data ? "?" : ""}${new URLSearchParams(data).toString()}`, {
       responseType: "blob",
       headers
     });
