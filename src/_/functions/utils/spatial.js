@@ -43,7 +43,7 @@ export const GetFeature = async({ featureNS = null, featurePrefix, featureType, 
     return await WFSEndpoint.GetFeature({ featureNS, featurePrefix, featureTypes: Array.isArray(featureType) ? featureType : [featureType], filter, srsName });
 }
 
-const Transaction = async ({ featureNS, featurePrefix, featureType, inserts = null, updates = null, deletes = null, srsName = EPSG_NAME }, url = null) => {
+export const Transaction = async ({ featureNS, featurePrefix, featureType, inserts = null, updates = null, deletes = null, srsName = EPSG_NAME }, url = null) => {
     // TODO: hay que validar url si hay uno por defecto?
     if (!url) {
         throw new Error("url is required");

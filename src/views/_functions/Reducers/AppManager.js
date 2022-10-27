@@ -22,15 +22,15 @@ export const manager = (state, action) => {
     case init:
       return action.payload;
     case changeLang:
-      return { 
+      return {
         userPreferences: {
           ...state.userPreferences,
           lang: action.payload.lang
-        }, 
-        i18n: action.payload.i18n 
+        },
+        i18n: action.payload.i18n
       };
     case changeTheme:
-      return { 
+      return {
         userPreferences: {
           ...state.userPreferences,
           theme: action.payload.theme

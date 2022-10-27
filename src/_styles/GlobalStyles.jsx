@@ -1,1 +1,0 @@
-/*aqui van los styled components generales*/

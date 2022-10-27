@@ -4,7 +4,7 @@ import { BasePage } from "views/_components";
 import { I18nContext, ConcentracionParcelariaContext } from "views/_functions/Contexts";
 
 export const EditPage = () => {
-  const { localeStrings } = useContext(I18nContext);
+  const i18n = useContext(I18nContext);
   const z = useContext(ConcentracionParcelariaContext);
   console.log(z);
   const { id } = useParams();

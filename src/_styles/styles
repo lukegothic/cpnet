@@ -1,7 +1,0 @@
-incluye:
-    - variables de colores
-        - themes (gn, tcsa, dark mode)
-
-posibilidad de:
-    estilos generales
-    + fuentes custom (en la carpeta fonts)

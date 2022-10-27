@@ -9,7 +9,7 @@ class WPS {
         this.version_ = opt_options.version || "1.0.0";
         this.formatters_ = {
             gml: new GML(),
-            geojson: new GeoJSON()
+            geojson: new GeoJSON()  // GEOSERVER ACTUALMENTE NO SE PORTA BIEN CON INPUT DE TIPO GEOJSON
         };
         this.endpoint_ = `${this.url_}?SERVICE=WPS&VERSION=${this.version_}`
     }

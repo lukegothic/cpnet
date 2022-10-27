@@ -1,5 +1,5 @@
 import { useReducer, useCallback } from "react";
-import { useEffectOnce } from "react-use";
+import { useEffectOnce, useUpdateEffect } from "react-use";
 import { isEmpty } from "lodash";
 import { load as loadUserPreferences, save as saveUserPreferences } from "services/UserPreferences";
 import { getLocaleStrings } from "services/I18n";

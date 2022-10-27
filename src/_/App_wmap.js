@@ -12,9 +12,11 @@ import AOILoader from './ui/components/AOILoader';
 import VectorLayer from 'ol/layer/Vector';
 import { Update } from './functions/utils/spatial';
 import ActionToolbar from './ui/components/ActionToolbar/ActionToolbar';
-import { UserPreferences } from './services/UserPreferences';
+import { UserPreferences } from './services/UserPreferences';                               
 
 const cpid = 2;
+
+// TODO: https://viglino.github.io/ol-ext/
 
 const writeCPAOI = async (aoi, map, aoiLayer) => {
     // CASOS A REFLEJAR:

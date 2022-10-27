@@ -4,7 +4,6 @@ import { Link, generatePath } from "react-router-dom";
 import { range } from "lodash";
 import { Routes } from "conf/Routes";
 import { BasePage } from "views/_components";
-import { ConcentracionParcelaria } from 'repositories/ConcentracionParcelaria';
 
 export const IndexPage = () => {
   // const w = useContext(I18nContext);
