@@ -9,53 +9,70 @@ import { isPlainObject } from "lodash";
 */
 
 export class HTTPRequester {
-  constructor({ url } = {}) {
-    if (!url) {
+  constructor({ url: baseURL, token = null, errorhandler = null } = {}) {
+    if (!baseURL) {
       throw Error(
         "DEV: Por favor especifica valor de endpoint al instanciar la clase HTTPRequester"
       );
     }
-    this.endpoint = url;
+    this.headers = {};
+    this.token = token;
+    this.axios = axios.create({ baseURL });
+    errorhandler && this.axios.interceptors.response.use(response => response, errorhandler);
   }
 
-  get = ({ url, data, headers } = {}) =>
+  set token(value) {
+    value && (this.headers = { ...this.headers, Authorization: `Bearer ${value}` });
+  }
+
+  get = async ({ url, data, headers } = {}) => {
+    return url &&
+    (
+      await this.axios.get(`${url}${data ? `?${new URLSearchParams(data).toString()}` : ""}`, {
+        headers: { ...this.headers, headers }
+      })
+    ).data;
+  }
+
+  download = async ({ url, data, headers } = {}) =>
     url &&
     (!data || isPlainObject(data)) &&
-    axios.get(`${this.endpoint}${url}${data ? "?" : ""}${new URLSearchParams(data).toString()}`, {
-      headers
-    });
+    (await this.axios.get(
+      `${this.endpoint}${url}${data ? `?${new URLSearchParams(data).toString()}` : ""}`,
+      {
+        responseType: "blob",
+        headers: { ...this.headers, headers }
+      }
+    ).data);
 
-  download = ({ url, data, headers } = {}) =>
-    url &&
-    (!data || isPlainObject(data)) &&
-    axios.get(`${this.endpoint}${url}${data ? "?" : ""}${new URLSearchParams(data).toString()}`, {
-      responseType: "blob",
-      headers
-    });
-
-  post = ({ url, data, headers } = {}) =>
+  post = async ({ url, data, headers } = {}) =>
     url &&
     isPlainObject(data) &&
-    axios.post(`${this.endpoint}${url}`, data, {
-      headers
-    });
+    (await this.axios.post(`${this.endpoint}${url}`, data, {
+      headers: { ...this.headers, headers }
+    }).data);
 
-  postWithFiles = (params = {}) => this.post(params);
+  postWithFiles = async (params = {}) => this.post(params);
 
-  update = ({ url, data, headers } = {}) =>
+  update = async ({ url, data, headers } = {}) =>
     url &&
     isPlainObject(data) &&
-    axios.put(`${this.endpoint}${url}`, data, {
-      headers
-    });
+    (await this.axios.put(`${this.endpoint}${url}`, data, {
+      headers: { ...this.headers, headers }
+    }).data);
 
-  putWithFiles = (params = {}) => this.update(params);
+  putWithFiles = async (params = {}) => await this.update(params);
 
-  delete = ({ url, data, headers } = {}) =>
+  delete = async ({ url, data, headers } = {}) =>
     url &&
     (!data || isPlainObject(data)) &&
-    axios.delete(`${this.endpoint}${url}`, {
+    (await this.axios.delete(`${this.endpoint}${url}`, {
       data,
-      headers
-    });
+      headers: { ...this.headers, headers }
+    }).data);
+
+  retry = async ({ request } = {}) => {
+    const x = await this.axios.request(request);
+    return x.data;
+  };
 }
