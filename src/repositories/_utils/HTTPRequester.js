@@ -26,29 +26,25 @@ export class HTTPRequester {
   }
 
   get = async ({ url, data, headers } = {}) => {
-    return url &&
-    (
-      await this.axios.get(`${url}${data ? `?${new URLSearchParams(data).toString()}` : ""}`, {
-        headers: { ...this.headers, headers }
-      })
-    ).data;
-  }
+    const resp = await this.axios.get(`${url}${data ? `?${new URLSearchParams(data).toString()}` : ""}`, {
+      headers: { ...this.headers, headers }
+    });
+    console.log(resp);
+    return resp && resp.data;
+  };
 
   download = async ({ url, data, headers } = {}) =>
     url &&
     (!data || isPlainObject(data)) &&
-    (await this.axios.get(
-      `${this.endpoint}${url}${data ? `?${new URLSearchParams(data).toString()}` : ""}`,
-      {
-        responseType: "blob",
-        headers: { ...this.headers, headers }
-      }
-    ).data);
+    (await this.axios.get(`${url}${data ? `?${new URLSearchParams(data).toString()}` : ""}`, {
+      responseType: "blob",
+      headers: { ...this.headers, headers }
+    }).data);
 
   post = async ({ url, data, headers } = {}) =>
     url &&
     isPlainObject(data) &&
-    (await this.axios.post(`${this.endpoint}${url}`, data, {
+    (await this.axios.post(`${url}`, data, {
       headers: { ...this.headers, headers }
     }).data);
 
@@ -57,7 +53,7 @@ export class HTTPRequester {
   update = async ({ url, data, headers } = {}) =>
     url &&
     isPlainObject(data) &&
-    (await this.axios.put(`${this.endpoint}${url}`, data, {
+    (await this.axios.put(`${url}`, data, {
       headers: { ...this.headers, headers }
     }).data);
 
@@ -66,13 +62,10 @@ export class HTTPRequester {
   delete = async ({ url, data, headers } = {}) =>
     url &&
     (!data || isPlainObject(data)) &&
-    (await this.axios.delete(`${this.endpoint}${url}`, {
+    (await this.axios.delete(`${url}`, {
       data,
       headers: { ...this.headers, headers }
     }).data);
 
-  retry = async ({ request } = {}) => {
-    const x = await this.axios.request(request);
-    return x.data;
-  };
+  retry = async ({ request } = {}) => await this.axios.request(request);
 }
