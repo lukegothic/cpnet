@@ -15,7 +15,7 @@ export const IndexPage = () => {
   useEffectOnce(() => {
     (async () => {
       const poke = await PokeApi.getPokemon("ditto2");
-      console.log(poke);
+      console.log("resultado final", poke);
     })();
   });
 

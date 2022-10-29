@@ -24,13 +24,11 @@ export class HTTPRequester {
   set token(value) {
     value && (this.headers = { ...this.headers, Authorization: `Bearer ${value}` });
   }
-
+  // TODO: get = async (url, { data, headers } = {} : opts) =>
   get = async ({ url, data, headers } = {}) => {
-    const resp = await this.axios.get(`${url}${data ? `?${new URLSearchParams(data).toString()}` : ""}`, {
+    return (await this.axios.get(`${url}${data ? `?${new URLSearchParams(data).toString()}` : ""}`, {
       headers: { ...this.headers, headers }
-    });
-    console.log(resp);
-    return resp && resp.data;
+    })).data;
   };
 
   download = async ({ url, data, headers } = {}) =>
@@ -67,5 +65,8 @@ export class HTTPRequester {
       headers: { ...this.headers, headers }
     }).data);
 
-  retry = async ({ request } = {}) => await this.axios.request(request);
+  retry = async ({ request } = {}) => {
+    request.headers = { ...this.headers, ...request.headers };
+    return await this.axios.request(request);
+  }
 }
