@@ -24,7 +24,7 @@ export class HTTPRequester {
   set token(value) {
     value && (this.headers = { ...this.headers, Authorization: `Bearer ${value}` });
   }
-  // TODO: get = async (url, { data, headers } = {} : opts) =>
+  // TODO: hacer que la url sea obligatoria y el resto de parametros opcionales con la forma: get = async (url, { data, headers } = {} : opts) =>
   get = async ({ url, data, headers } = {}) => {
     return (await this.axios.get(`${url}${data ? `?${new URLSearchParams(data).toString()}` : ""}`, {
       headers: { ...this.headers, headers }

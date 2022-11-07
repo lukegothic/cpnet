@@ -75,7 +75,7 @@ Pasos:
 :: Fase recintos de interés
     PROCESO--- dibujar ajustar recintos y clasitificar tipificar sin salirse del aoi, alguna restriccion mas???
 
-TODO conectado con el endpoint de geoserver para persistir los cambios y con posibilidad de undo/redo 
+conectado con el endpoint de geoserver para persistir los cambios y con posibilidad de undo/redo 
 
 jsts para operaciones y entiendo que para bloquear edges tb
 

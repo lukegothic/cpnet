@@ -1,1 +1,0 @@
-//export { getConcentracionParcelaria } from "./ConcentracionParcelaria";

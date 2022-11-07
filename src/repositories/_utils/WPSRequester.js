@@ -5,16 +5,15 @@ import { WPS_VERSION } from "conf/Spatial";
 /*
   options:
   // TODO: documentar parametros
-  // TODO: pasar de fetch a axios
+  // TODO: comprobar que range de lodash va bien, antes era una clase a medida
 */
-// TODO: ESTO ES MAS UNA CLASE UTILS QUE OTRA COSA
+// Esta clase no tiene un repo asociado porque un repo debe tener una entidad asociada
+// Un WPS es por definición und endpoint generico que permite realizar opereaciones espaciales
+// Queda pues simplemente como una _utils dentro de repositories para ser usado desde services
 export class WPSRequester {
-  constructor({ url, version = null } = {}) {
-    if (!url) {
-      throw new Error("url is mandatory");
-    }
+  constructor({ url = process.env.REACT_APP_CPENDPOINT, version = WPS_VERSION } = {}) {
     this.url_ = url;
-    this.version_ = version || WPS_VERSION;
+    this.version_ = version;
     this.formatters_ = {
       gml: new GML(),
       geojson: new GeoJSON() // GEOSERVER ACTUALMENTE NO SE PORTA BIEN CON INPUT DE TIPO GEOJSON
@@ -37,6 +36,7 @@ export class WPSRequester {
       if (!Array.isArray(inputs)) {
         inputs = [inputs];
       }
+      // TODO: pasar de fetch a axios
       const r = await fetch(`${this.endpoint_}&request=Execute`, {
         method: "POST",
         headers: { "Content-Type": inputFormat },

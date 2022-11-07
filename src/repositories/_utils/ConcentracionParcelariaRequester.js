@@ -4,8 +4,11 @@ export const ConcentracionParcelariaRequester = new HTTPRequester({ url: process
     const status = error.response ? error.response.status : null;
     if (status === 401) {
         // token request // update token
-        const getToken = PokeApiRequester.get({ url: "generation/1" }).then(data => PokeApiRequester.token = data.name);
-        return getToken.then(() => PokeApiRequester.retry({ request: error.config }));
+        // TODO: cfg url y propiedad token (las dos siguientes lineas)
+        const url = "auth/token";
+        const token_prop = "token";
+        const getToken = ConcentracionParcelariaRequester.get({ url }).then(data => ConcentracionParcelariaRequester.token = data[token_prop]);
+        return getToken.then(() => ConcentracionParcelariaRequester.retry({ request: error.config }));
     }
     return Promise.reject(error);
 }});

@@ -6,10 +6,8 @@ import { WFS as WFSFormat, GeoJSON as GeoJSONFormat } from "ol/format";
 /*
   options:
   // TODO: documentar parametros
-  // TODO: pasar de fetch a axios
 */
 
-// TODO: AÑADIR PARAMETROS ESPECIFICOS DE LA FEATURE
 export class WFSRequester {
   constructor({ url, version = null } = {}) {
     if (!url) {
@@ -46,6 +44,7 @@ export class WFSRequester {
       srsName,
       outputFormat
     });
+    // TODO: usar axios.post
     const r = await fetch(this.endpoint_, {
       method: "POST",
       body: this.serializers_.XML.serializeToString(readRequest)
@@ -77,6 +76,7 @@ export class WFSRequester {
         outputFormat
       }
     );
+    // TODO: usar axios.post
     const response = await fetch(this.endpoint_, {
       method: "POST",
       body: this.serializers_.XML.serializeToString(writeRequest)
