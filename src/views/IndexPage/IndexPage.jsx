@@ -3,7 +3,6 @@ import { range } from "lodash";
 import { Routes } from "conf/Routes";
 import { BasePage } from "views/_components";
 import { useEffectOnce } from "react-use";
-import { PokeApi } from "repositories/PokeApi";
 
 export const IndexPage = () => {
   // const w = useContext(I18nContext);
@@ -14,8 +13,7 @@ export const IndexPage = () => {
 
   useEffectOnce(() => {
     (async () => {
-      const poke = await PokeApi.getPokemon("ditto2");
-      console.log("resultado final", poke);
+
     })();
   });
 
